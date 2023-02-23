@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using RestaurantCRUD.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using RestaurantCRUD.Models;
 
 namespace RestaurantCRUD.Controllers
 {
@@ -6,11 +8,21 @@ namespace RestaurantCRUD.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
+        public readonly ICustomerService _customersService;
+        public CustomersController(ICustomerService customersService)
+        {
+            _customersService = customersService;
+        }
         // GET: api/<CustomersController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<List<Customer>>>GetAll()
         {
-            return new string[] { "value1", "value2" };
+            var result = await _customersService.GetAll();
+            if (result == null)
+            {
+                return NotFound("No data can be supplied!");
+            }
+            return Ok(result);
         }
 
         // GET api/<CustomersController>/5

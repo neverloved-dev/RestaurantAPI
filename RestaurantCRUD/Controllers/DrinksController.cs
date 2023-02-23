@@ -1,14 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using RestaurantCRUD.Models;
+using RestaurantCRUD.Services.Interfaces;
 namespace RestaurantCRUD.Controllers
 {
     public class DrinksController : Controller
     {
+        public readonly IDrinksService _drinksService;
+        public DrinksController(IDrinksService drinksService)
+        {
+            _drinksService = drinksService;
+        }
         // GET: api/<DrinksController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<List<Drink>>> GetAllDrinks()
         {
-            return new string[] { "value1", "value2" };
+            var result = await _drinksService.GetAllDrinks();
+            if (result == null) 
+            {
+                return NotFound("Data cannot be supplied");
+            }
+            return Ok(result);
         }
 
         // GET api/<DrinksController>/5
