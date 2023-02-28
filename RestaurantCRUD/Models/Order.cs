@@ -7,7 +7,7 @@ namespace RestaurantCRUD.Models
     public class Order
     {
         [Required]
-       public Guid guid { get; set; }
+        public int Id { get; set; }
         [Required]
        public DateTime ordered_at { get; set; }
         [Required]

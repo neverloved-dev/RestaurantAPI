@@ -1,5 +1,7 @@
 using RestaurantCRUD.Services.Interfaces;
 using RestaurantCRUD.Services;
+using RestaurantCRUD.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,7 @@ builder.Services.AddScoped<IMealsService, MealsService>();
 builder.Services.AddScoped<IDrinksService,DrinksService>();
 builder.Services.AddScoped<IOrderService,OrdersService>();
 builder.Services.AddScoped<ICustomerService,CustomerService>();
-
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<RestaurantDbContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("MainConnection")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

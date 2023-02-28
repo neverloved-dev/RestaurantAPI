@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace RestaurantCRUD.Models
 {
@@ -6,7 +7,7 @@ namespace RestaurantCRUD.Models
     public class Customer
     {
         [Required]
-        public Guid guid { get; set; }
+        public int Id{ get; set; }
         [EmailAddress]
         public string Email { get; set; }
         [Required]
